@@ -13,9 +13,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 import org.sikuli.script.Key;
@@ -33,6 +36,10 @@ public class AssistantGui extends JFrame {
     public static final String STOP = "停止";
     private static final String GAME = "游戏";
     private static final String AUTO_START_GAME = "自动开始游戏";
+    private static final String DELAY_TIME = "消除后的暂停时间( %3d毫秒 )";
+    private static final int DEFAULT_DELAY_TIME = 20; // 20毫秒
+    private static final int MIN_DELAY_TIME = 0; // 0毫秒
+    private static final int MAX_DELAY_TIME = 200; // 200毫秒
 
     public static final Map<String, String> GAME_MAP = new LinkedHashMap<String, String>();
 
@@ -40,6 +47,7 @@ public class AssistantGui extends JFrame {
 
     public final JComboBox gameComboBox;
     public final JCheckBox autoStartGameCheckBox;
+    public final JSlider delayTimeSlider;
     public final JButton startButton;
 
     static {
@@ -69,6 +77,31 @@ public class AssistantGui extends JFrame {
         autoStartGameCheckBox.setSelected(true);
         panel.add(autoStartGameCheckBox);
 
+        // Delay time slider
+        final JLabel delayTimeLabel = new JLabel(String.format(DELAY_TIME, DEFAULT_DELAY_TIME) + "：");
+        panel.add(delayTimeLabel);
+        delayTimeSlider = new JSlider(MIN_DELAY_TIME, MAX_DELAY_TIME);
+        delayTimeLabel.setLabelFor(delayTimeSlider);
+        delayTimeSlider.setValue(DEFAULT_DELAY_TIME);
+        delayTimeSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                delayTimeLabel.setText(String.format(DELAY_TIME, delayTimeSlider.getValue()) + "：");
+            }
+        });
+
+        // 设置绘制刻度
+        delayTimeSlider.setPaintTicks(true);
+
+        // 设置大刻度与小刻度之间的距离
+        delayTimeSlider.setMajorTickSpacing(MAX_DELAY_TIME / 10);
+        delayTimeSlider.setMinorTickSpacing(2);
+
+        // 设置是否标记数字
+        delayTimeSlider.setPaintLabels(true);
+
+        panel.add(delayTimeSlider);
+
         // Button
         panel.add(new JLabel());
         startButton = new JButton(START);
@@ -77,7 +110,7 @@ public class AssistantGui extends JFrame {
         panel.add(startButton);
 
         // Lay out the panel.
-        SpringUtilities.makeCompactGrid(panel, 3, 2, // rows, cols
+        SpringUtilities.makeCompactGrid(panel, 4, 2, // rows, cols
                 6, 6, // initX, initY
                 6, 6); // xPad, yPad
 
@@ -87,7 +120,7 @@ public class AssistantGui extends JFrame {
 
         // Display the window.
         pack();
-        setSize(280, (int) getSize().getHeight());
+        setSize(600, (int) getSize().getHeight());
         setVisible(true);
     }
 
@@ -123,6 +156,10 @@ public class AssistantGui extends JFrame {
 
     public JCheckBox getAutoStartGameCheckBox() {
         return autoStartGameCheckBox;
+    }
+
+    public JSlider getDelayTimeSlider() {
+        return delayTimeSlider;
     }
 
     public JButton getStartButton() {

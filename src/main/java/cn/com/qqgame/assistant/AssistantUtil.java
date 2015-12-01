@@ -19,10 +19,12 @@ public class AssistantUtil {
     }
 
     public static void sleep(final long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            // Ignore
+        if(millis > 0) {
+            try {
+                Thread.sleep(millis);
+            } catch (InterruptedException e) {
+                // Ignore
+            }
         }
     }
 
@@ -37,6 +39,7 @@ public class AssistantUtil {
 
         AssistantGui.getInstance().getGameComboBox().setEnabled(false);
         AssistantGui.getInstance().getAutoStartGameCheckBox().setEnabled(false);
+        AssistantGui.getInstance().getDelayTimeSlider().setEnabled(false);
 
         JButton button = AssistantGui.getInstance().getStartButton();
         button.setText(AssistantGui.STOP);
@@ -55,6 +58,7 @@ public class AssistantUtil {
 
             AssistantGui.getInstance().getGameComboBox().setEnabled(true);
             AssistantGui.getInstance().getAutoStartGameCheckBox().setEnabled(true);
+            AssistantGui.getInstance().getDelayTimeSlider().setEnabled(true);
 
             JButton button = AssistantGui.getInstance().getStartButton();
             button.setText(AssistantGui.START);

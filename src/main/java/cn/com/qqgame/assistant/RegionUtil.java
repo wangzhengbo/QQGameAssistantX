@@ -4,6 +4,7 @@ import org.sikuli.script.Location;
 
 import cn.com.jautoitx.Mouse;
 import cn.com.jautoitx.Mouse.MouseButton;
+import cn.com.qqgame.assistant.gui.AssistantGui;
 import cn.com.jautoitx.Pixel;
 
 public final class RegionUtil {
@@ -15,8 +16,6 @@ public final class RegionUtil {
 
     // 在判断格子位置时允许的误差
     private static final int DEVIATION = 2; // 2px
-
-    private static final int SLEEP_TIME = 20; // 20毫秒
 
     private static final Object MOUSE_LOCK_OBJECT = new Object();
 
@@ -166,7 +165,7 @@ public final class RegionUtil {
                     location1.getX() + BOX_WIDTH, location1.getY() + BOX_HEIGHT))) {
                 // 第一次点击有效才点击第二次
                 mouseClick(location2);
-                AssistantUtil.sleep(SLEEP_TIME);
+                AssistantUtil.sleep(AssistantGui.getInstance().getDelayTimeSlider().getValue());
             }
         }
     }
