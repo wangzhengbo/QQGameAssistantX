@@ -1,7 +1,6 @@
 package cn.com.qqgame.assistant.gui;
 
-import java.awt.Dimension;
-import java.awt.Insets;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
@@ -14,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -23,8 +23,8 @@ import org.sikuli.script.Screen;
 
 import cn.com.qqgame.assistant.AssistantUtil;
 import cn.com.qqgame.assistant.GlobalEscKeyListener;
+import cn.com.qqgame.assistant.SpringUtilities;
 import cn.com.qqgame.assistant.helper.LogHelper;
-import jp.co.tlt.Selfie3.guitools.TableLayout.TableLayout;
 
 public class AssistantGui extends JFrame {
     private static final long serialVersionUID = 5057456474131539463L;
@@ -33,9 +33,6 @@ public class AssistantGui extends JFrame {
     public static final String STOP = "停止";
     private static final String GAME = "游戏";
     private static final String AUTO_START_GAME = "自动开始游戏";
-    private static final int TABLE_LAYOUT_ROW_HEIGHT = 34;
-    private static final int TABLE_LAYOUT_LEFT_COLUMN_WIDTH = 90;
-    private static final int TABLE_LAYOUT_RIGHT_COLUMN_WIDTH = 240;
 
     public static final Map<String, String> GAME_MAP = new LinkedHashMap<String, String>();
 
@@ -54,17 +51,13 @@ public class AssistantGui extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel();
-        final TableLayout tableLayout = new TableLayout(new Insets(5, 5, 5, 5));
-        tableLayout.addTR(TABLE_LAYOUT_ROW_HEIGHT).addTD(TABLE_LAYOUT_LEFT_COLUMN_WIDTH)
-                .addTD(TABLE_LAYOUT_RIGHT_COLUMN_WIDTH).repeat(3);
-        panel.setLayout(tableLayout);
-        getContentPane().add(panel);
+        JPanel panel = new JPanel(new SpringLayout());
 
         // Game combo box
         JLabel gameLabel = new JLabel(GAME + "：");
         panel.add(gameLabel);
         gameComboBox = new JComboBox(new Vector<String>(GAME_MAP.values()));
+        gameLabel.setLabelFor(gameComboBox);
         gameComboBox.setEditable(false);
         panel.add(gameComboBox);
 
@@ -72,6 +65,7 @@ public class AssistantGui extends JFrame {
         JLabel autoStartGameLabel = new JLabel(AUTO_START_GAME + "：");
         panel.add(autoStartGameLabel);
         autoStartGameCheckBox = new JCheckBox();
+        autoStartGameLabel.setLabelFor(autoStartGameCheckBox);
         autoStartGameCheckBox.setSelected(true);
         panel.add(autoStartGameCheckBox);
 
@@ -82,8 +76,19 @@ public class AssistantGui extends JFrame {
         startButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
         panel.add(startButton);
 
-        // 设置窗体的大小
-        setSize(new Dimension(400, 200));
+        // Lay out the panel.
+        SpringUtilities.makeCompactGrid(panel, 3, 2, // rows, cols
+                6, 6, // initX, initY
+                6, 6); // xPad, yPad
+
+        JPanel p = new JPanel(new BorderLayout());
+        p.add(panel, BorderLayout.CENTER);
+        setContentPane(p);
+
+        // Display the window.
+        pack();
+        setSize(280, (int) getSize().getHeight());
+        setVisible(true);
     }
 
     private static class StartActionListener implements ActionListener {
@@ -141,7 +146,7 @@ public class AssistantGui extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AssistantGui.getInstance().setVisible(true);
+                AssistantGui.getInstance();
             }
         });
     }
