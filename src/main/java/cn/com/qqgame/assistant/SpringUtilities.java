@@ -31,9 +31,11 @@
 
 package cn.com.qqgame.assistant;
 
-import javax.swing.*;
+import java.awt.Component;
+import java.awt.Container;
+
+import javax.swing.Spring;
 import javax.swing.SpringLayout;
-import java.awt.*;
 
 /**
  * A 1.4 file that provides utility methods for creating form- or grid-style
@@ -45,8 +47,8 @@ import java.awt.*;
  */
 public class SpringUtilities {
     /**
-     * A debugging utility that prints to stdout the component's minimum,
-     * preferred, and maximum sizes.
+     * A debugging utility that prints to stdout the component's minimum, preferred,
+     * and maximum sizes.
      */
     public static void printSizes(Component c) {
         System.out.println("minimumSize = " + c.getMinimumSize());
@@ -60,18 +62,12 @@ public class SpringUtilities {
      * preferred width and height of the components. The parent is made just big
      * enough to fit them all.
      *
-     * @param rows
-     *            number of rows
-     * @param cols
-     *            number of columns
-     * @param initialX
-     *            x location to start the grid at
-     * @param initialY
-     *            y location to start the grid at
-     * @param xPad
-     *            x padding between cells
-     * @param yPad
-     *            y padding between cells
+     * @param rows     number of rows
+     * @param cols     number of columns
+     * @param initialX x location to start the grid at
+     * @param initialY y location to start the grid at
+     * @param xPad     x padding between cells
+     * @param yPad     y padding between cells
      */
     public static void makeGrid(Container parent, int rows, int cols, int initialX, int initialY, int xPad, int yPad) {
         SpringLayout layout;
@@ -146,23 +142,16 @@ public class SpringUtilities {
 
     /**
      * Aligns the first <code>rows</code> * <code>cols</code> components of
-     * <code>parent</code> in a grid. Each component in a column is as wide as
-     * the maximum preferred width of the components in that column; height is
-     * similarly determined for each row. The parent is made just big enough to
-     * fit them all.
+     * <code>parent</code> in a grid. Each component in a column is as wide as the
+     * maximum preferred width of the components in that column; height is similarly
+     * determined for each row. The parent is made just big enough to fit them all.
      *
-     * @param rows
-     *            number of rows
-     * @param cols
-     *            number of columns
-     * @param initialX
-     *            x location to start the grid at
-     * @param initialY
-     *            y location to start the grid at
-     * @param xPad
-     *            x padding between cells
-     * @param yPad
-     *            y padding between cells
+     * @param rows     number of rows
+     * @param cols     number of columns
+     * @param initialX x location to start the grid at
+     * @param initialY y location to start the grid at
+     * @param xPad     x padding between cells
+     * @param yPad     y padding between cells
      */
     public static void makeCompactGrid(Container parent, int rows, int cols, int initialX, int initialY, int xPad,
             int yPad) {

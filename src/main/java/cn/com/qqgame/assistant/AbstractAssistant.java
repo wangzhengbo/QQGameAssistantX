@@ -9,7 +9,6 @@ public abstract class AbstractAssistant implements Assistant {
         ImagePath.add(AbstractAssistant.class.getCanonicalName() + "/duiduipeng");
     }
 
-    @Override
     public void start() {
         Settings.INSTANCE.setCurrentAssistant(this);
         if (autoStartGameThread == null) {
@@ -18,7 +17,10 @@ public abstract class AbstractAssistant implements Assistant {
         }
     }
 
-    @Override
+    public boolean started() {
+        return Settings.INSTANCE.getCurrentAssistant() != null;
+    }
+
     public void stop() {
         Settings.INSTANCE.setCurrentAssistant(null);
     }

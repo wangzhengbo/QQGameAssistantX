@@ -9,7 +9,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.6</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<repositories>
@@ -17,6 +17,14 @@
 			<id>ProjectRepo</id>
 			<name>ProjectRepo</name>
 			<url>file://${basedir}/lib</url>
+		</repository>
+
+		<repository>
+			<id>central</id>
+			<url>http://central.maven.org/maven2/</url>
+  			<releases>
+ 				<enabled>true</enabled>
+			</releases>
 		</repository>
 	</repositories>
 
@@ -49,7 +57,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.1</version>
+			<version>3.8.1</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

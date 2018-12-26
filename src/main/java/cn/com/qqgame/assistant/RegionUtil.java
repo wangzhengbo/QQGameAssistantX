@@ -4,18 +4,18 @@ import org.sikuli.script.Location;
 
 import cn.com.jautoitx.Mouse;
 import cn.com.jautoitx.Mouse.MouseButton;
-import cn.com.qqgame.assistant.gui.AssistantGui;
 import cn.com.jautoitx.Pixel;
+import cn.com.qqgame.assistant.gui.AssistantGui;
 
 public final class RegionUtil {
     // 对对碰格子的宽度
-    public static final int BOX_WIDTH = 48; // 48px
+    public static final int BOX_WIDTH = 95; // 95px
 
     // 对对碰格子的高度
-    public static final int BOX_HEIGHT = BOX_WIDTH; // 48px
+    public static final int BOX_HEIGHT = BOX_WIDTH; // 95px
 
     // 在判断格子位置时允许的误差
-    private static final int DEVIATION = 2; // 2px
+    private static final int DEVIATION = 10; // 10px
 
     private static final Object MOUSE_LOCK_OBJECT = new Object();
 

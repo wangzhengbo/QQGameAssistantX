@@ -7,8 +7,10 @@ package cn.com.qqgame.assistant;
  */
 public interface Assistant {
     // 开始辅助游戏
-    public void start();
+    void start();
+
+    boolean started();
 
     // 停止辅助游戏
-    public void stop();
+    void stop();
 }

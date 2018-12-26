@@ -22,11 +22,13 @@ import javax.swing.event.ChangeListener;
 
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 import org.sikuli.script.Key;
+import org.sikuli.script.KeyModifier;
 import org.sikuli.script.Screen;
 
 import cn.com.qqgame.assistant.AssistantUtil;
-import cn.com.qqgame.assistant.GlobalEscKeyListener;
 import cn.com.qqgame.assistant.SpringUtilities;
+import cn.com.qqgame.assistant.StartKeyListener;
+import cn.com.qqgame.assistant.StopKeyListener;
 import cn.com.qqgame.assistant.helper.LogHelper;
 
 public class AssistantGui extends JFrame {
@@ -45,7 +47,7 @@ public class AssistantGui extends JFrame {
 
     private static AssistantGui INSTANCE = null;
 
-    public final JComboBox gameComboBox;
+    public final JComboBox<String> gameComboBox;
     public final JCheckBox autoStartGameCheckBox;
     public final JSlider delayTimeSlider;
     public final JButton startButton;
@@ -64,7 +66,7 @@ public class AssistantGui extends JFrame {
         // Game combo box
         JLabel gameLabel = new JLabel(GAME + "：");
         panel.add(gameLabel);
-        gameComboBox = new JComboBox(new Vector<String>(GAME_MAP.values()));
+        gameComboBox = new JComboBox<String>(new Vector<String>(GAME_MAP.values()));
         gameLabel.setLabelFor(gameComboBox);
         gameComboBox.setEditable(false);
         panel.add(gameComboBox);
@@ -84,7 +86,6 @@ public class AssistantGui extends JFrame {
         delayTimeLabel.setLabelFor(delayTimeSlider);
         delayTimeSlider.setValue(DEFAULT_DELAY_TIME);
         delayTimeSlider.addChangeListener(new ChangeListener() {
-            @Override
             public void stateChanged(ChangeEvent e) {
                 delayTimeLabel.setText(String.format(DELAY_TIME, delayTimeSlider.getValue()) + "：");
             }
@@ -125,7 +126,6 @@ public class AssistantGui extends JFrame {
     }
 
     private static class StartActionListener implements ActionListener {
-        @Override
         public void actionPerformed(ActionEvent event) {
             JButton button = (JButton) event.getSource();
 
@@ -150,7 +150,7 @@ public class AssistantGui extends JFrame {
         return INSTANCE;
     }
 
-    public JComboBox getGameComboBox() {
+    public JComboBox<String> getGameComboBox() {
         return gameComboBox;
     }
 
@@ -178,10 +178,10 @@ public class AssistantGui extends JFrame {
         }
 
         // 监听Esc按键，用于停止辅助工具
-        Key.addHotkey(Key.ESC, 0, new GlobalEscKeyListener());
+        Key.addHotkey(Key.ESC, 0, new StopKeyListener());
+        Key.addHotkey('S', KeyModifier.CTRL + KeyModifier.SHIFT, new StartKeyListener());
 
         SwingUtilities.invokeLater(new Runnable() {
-            @Override
             public void run() {
                 AssistantGui.getInstance();
             }

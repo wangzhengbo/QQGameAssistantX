@@ -19,7 +19,7 @@ public class AssistantUtil {
     }
 
     public static void sleep(final long millis) {
-        if(millis > 0) {
+        if (millis > 0) {
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException e) {
@@ -34,18 +34,20 @@ public class AssistantUtil {
      * @throws Exception
      */
     public static void startAssistant() throws Exception {
-        Assistant assistant = getAssistant();
-        assistant.start();
+        if (Settings.INSTANCE.getCurrentAssistant() == null) {
+            Assistant assistant = getAssistant();
+            assistant.start();
 
-        AssistantGui.getInstance().getGameComboBox().setEnabled(false);
-        AssistantGui.getInstance().getAutoStartGameCheckBox().setEnabled(false);
-        AssistantGui.getInstance().getDelayTimeSlider().setEnabled(false);
+            AssistantGui.getInstance().getGameComboBox().setEnabled(false);
+            AssistantGui.getInstance().getAutoStartGameCheckBox().setEnabled(false);
+            AssistantGui.getInstance().getDelayTimeSlider().setEnabled(false);
 
-        JButton button = AssistantGui.getInstance().getStartButton();
-        button.setText(AssistantGui.STOP);
-        button.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.red));
+            JButton button = AssistantGui.getInstance().getStartButton();
+            button.setText(AssistantGui.STOP);
+            button.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.red));
 
-        LogHelper.debug("Start running assistant: %s.", assistant.getClass().getName());
+            LogHelper.debug("Start running assistant: %s.", assistant.getClass().getName());
+        }
     }
 
     /**

@@ -9,9 +9,9 @@ import org.sikuli.basics.HotkeyListener;
  * @author zhengbo.wang
  *
  */
-public class GlobalEscKeyListener extends HotkeyListener {
+public class StopKeyListener extends HotkeyListener {
     @Override
-    public void hotkeyPressed(HotkeyEvent e) {
+    public void hotkeyPressed(HotkeyEvent event) {
         AssistantUtil.stopAssistant();
     }
 }

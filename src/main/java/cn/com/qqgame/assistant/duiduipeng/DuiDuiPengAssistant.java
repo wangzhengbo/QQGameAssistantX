@@ -91,7 +91,7 @@ public class DuiDuiPengAssistant extends AbstractAssistant {
                                             new Location(
                                                     location3.getX() + RegionUtil.BOX_WIDTH
                                                             * ((location3.getX() < separatedLocation.getX()) ? 1 : -1),
-                                            separatedLocation.getY()));
+                                                    separatedLocation.getY()));
                                     break OuterForLoop;
                                 } else if (diagonalLocation != null) {
                                     RegionUtil.swapImage(location3,
@@ -164,7 +164,7 @@ public class DuiDuiPengAssistant extends AbstractAssistant {
                                             new Location(
                                                     location3.getX() + RegionUtil.BOX_WIDTH
                                                             * ((location3.getX() < location1.getX()) ? 1 : -1),
-                                            location3.getY()));
+                                                    location3.getY()));
                                     break OuterForLoop;
                                 }
                             }
